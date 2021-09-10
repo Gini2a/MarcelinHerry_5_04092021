@@ -1,0 +1,60 @@
+.header{
+    display: block;
+    background-color: #F3E9F1;
+    padding-bottom: 20px;
+
+}
+
+h1{
+ 
+    margin-bottom: 0;
+}
+h1,p{
+    color:#7E3300;
+    text-align: center;
+}
+
+a.cart{
+    position: absolute;
+    top: 53px;
+    right: 35px;
+    text-decoration: none;
+    color: hotpink;
+}
+.accueil{
+    position: absolute;
+    top: 53px;
+    right: 180px;
+    text-decoration: none;
+    color: hotpink;
+}
+.fa-shopping-cart{
+    margin-right: 10px;
+}
+
+footer{
+    background-color: #F3E9F1;
+}
+
+.nav{
+    display: flex;
+    justify-content: space-around;
+}
+
+a.nav__link{
+    text-decoration: none;
+    color: #7E3300;
+    font-weight: bold;
+}
+
+.form{
+ margin-bottom: 30px;
+}
+
+.form_input{
+    width: 200px;
+}
+
+.form_order{
+    width: 100px;
+}
