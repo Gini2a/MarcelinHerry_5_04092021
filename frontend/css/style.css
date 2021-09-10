@@ -1,7 +1,12 @@
+body{
+    margin: 0;
+}
+
 .header{
     display: block;
     background-color: #F3E9F1;
     padding-bottom: 20px;
+    padding-top: 1px;
 
 }
 
@@ -19,14 +24,15 @@ a.cart{
     top: 53px;
     right: 35px;
     text-decoration: none;
-    color: hotpink;
+    color:#7E3300;
+    ;
 }
 .accueil{
     position: absolute;
     top: 53px;
     right: 180px;
     text-decoration: none;
-    color: hotpink;
+    color:#7E3300;
 }
 .fa-shopping-cart{
     margin-right: 10px;
@@ -57,4 +63,27 @@ a.nav__link{
 
 .form_order{
     width: 100px;
+}
+
+.ordered{
+    display: flex;
+    justify-content: center;
+    background-color: #f6f6f6;
+}
+
+.congrats{
+    margin-top: 0;
+    padding-top: 15px;
+    text-align: center;
+}
+
+.confirmation{
+    background-color: skyblue;
+    border-radius: 30%;
+    padding: 20px;
+}
+
+.orderid{
+    margin: 0;
+    padding: 20px;
 }
