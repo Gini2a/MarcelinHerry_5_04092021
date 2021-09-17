@@ -23,7 +23,7 @@ fetch(url)
           ${teddy.description}
         </p>
         <p class="teddy__price">    
-        ${teddy.price}
+        <strong>${teddy.price/100} €</strong>
         </p>
         </figcaption>
         </figure>
@@ -33,7 +33,9 @@ fetch(url)
 
       htmlImages.push(imageHtml);
       console.log("id", teddy._id, "name", teddy.name, "price", teddy.price, "imageUrl", teddy.imageUrl);
+      
   }
+  
 
   let div = `<p class="store_desc">Nous confectionnons des nounours pour petits et grands : 100% MadeinHands !</p>
   <h2 class="store_title">Nos produits</h3> <div class="teddy__cards">${htmlImages.join("")}</div>`;
@@ -45,5 +47,4 @@ fetch(url)
   let bug = document.getElementById("storeJs");
   bug.innerHTML =
   "Une erreur est survenue.<br>Veuillez relancer votre serveur local (port:3000)";
-  bug.style.textAlign = "center";
-})
+  bug.style.textAlign = "center";});

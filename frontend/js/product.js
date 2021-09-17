@@ -28,7 +28,7 @@ let idTeddy=`http://localhost:3000/api/teddies/${id}`;
                             </p>
                             <div class=teddy__price-color>
                             <p class="teddy__price">    
-                            ${teddy.price}
+                           <strong> ${teddy.price/100} €</strong>
                             </p>
                             <select class="teddy-color">
 					  			${optionColor}
@@ -39,3 +39,4 @@ let idTeddy=`http://localhost:3000/api/teddies/${id}`;
 					document.querySelector("#teddy").innerHTML = teddyHtml;
 			  })
 			  .catch((err) =>console.log("Error", err));
+			
