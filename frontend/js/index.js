@@ -17,7 +17,7 @@ fetch(url)
         <img class="teddy__image" src="${teddy.imageUrl}" alt="joli ourson" />
         <figcaption class="teddy__figcaption">
         <h2 class="teddy__name">
-          ${teddy.name}
+        ${teddy.name}
         </h2>
           <p class="teddy_desc">
           ${teddy.description}
@@ -41,7 +41,7 @@ fetch(url)
 
   document.querySelector("#storeJs").innerHTML = div;
 })
-.catch(function(error){
+.catch((error) => {
   let bug = document.getElementById("storeJs");
   bug.innerHTML =
   "Une erreur est survenue.<br>Veuillez relancer votre serveur local (port:3000)";
