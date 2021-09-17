@@ -1,13 +1,13 @@
 
 let url="http://localhost:3000/api/teddies"
 fetch(url)
-.then(function(response) {
+.then((response)=> {
   console.log( response);
   if (response.ok) {
       return response.json();
   }
 })
-.then(function(data) {
+.then((data)=> {
     console.log("value", data);
     let htmlImages = [];
     for(let teddy of data) {
