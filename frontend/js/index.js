@@ -1,17 +1,11 @@
 
-let url="http://localhost:3000/api/teddies"
-fetch(url)
-.then((response)=> {
-  console.log( response);
-  if (response.ok) {
-      return response.json();
-  }
-})
+getTeddies()
+
 .then((data)=> {
     console.log("value", data);
-    let htmlImages = [];
+    let figureTab = [];
     for(let teddy of data) {
-      let imageHtml = `
+      let figure = `
       <a href="product.html?id=${teddy._id}">
       <figure class="teddy__figure">
         <img class="teddy__image" src="${teddy.imageUrl}" alt="joli ourson" />
@@ -31,14 +25,14 @@ fetch(url)
       `;
       // string interpolation ${variable}
 
-      htmlImages.push(imageHtml);
+      figureTab.push(figure);
       console.log("id", teddy._id, "name", teddy.name, "price", teddy.price, "imageUrl", teddy.imageUrl);
       
   }
   
 
   let div = `<p class="store_desc">Nous confectionnons des nounours pour petits et grands : 100% MadeinHands !</p>
-  <h2 class="store_title">Nos produits</h3> <div class="teddy__cards">${htmlImages.join("")}</div>`;
+  <h2 class="store_title">Nos produits</h3> <div class="teddy__cards">${figureTab.join("")}</div>`;
 
 
   document.querySelector("#storeJs").innerHTML = div;

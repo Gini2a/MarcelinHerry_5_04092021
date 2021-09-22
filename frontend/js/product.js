@@ -28,7 +28,7 @@ let idTeddy=`http://localhost:3000/api/teddies/${id}`;
                             </p>
                             <div class=teddy__price-color>
                             <p class="teddy__price">    
-                           <strong> ${teddy.price/100} €</strong>
+                           <strong> ${teddy.price/100} €
                             </p>
                             <select class="teddy-color">
 					  			${optionColor}
