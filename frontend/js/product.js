@@ -1,14 +1,9 @@
+
 let params = new URL(document.location).searchParams;
 let id = params.get("id");
 let idTeddy=`http://localhost:3000/api/teddies/${id}`;
 	
-			fetch(idTeddy)
-			  .then((response)=> {
-			  	console.log(response);
-			    if (response.ok) {
-			      	return response.json();
-			    }
-			  })
+			getTeddy(id)
 			  .then((teddy)=> {
 			    	console.log("Value", teddy);
 			    	let optionColor = "";
@@ -34,9 +29,32 @@ let idTeddy=`http://localhost:3000/api/teddies/${id}`;
 					  			${optionColor}
 					  		</select>	
                             </div>
+							</figcaption>
+						</figure> 
 					  	</div>
 					  	`;                 
 					document.querySelector("#teddy").innerHTML = teddyHtml;
-			  })
-			  .catch((err) =>console.log("Error", err));
-			
+			  });
+
+			  getTeddy(id)
+			  .then((teddy)=> {
+		     const buttonAdd=document.querySelector("#btn_add");
+			 buttonAdd.addEventListener('click', function(event) {
+				addTeddyToCart(teddy);
+			 });
+
+
+			})
+	  /*  	 getTeddy(id)
+			.then((teddy)=>{ 
+			const buttonRemove=document.querySelector("#btn_remove");
+			buttonRemove.addEventListener('click',function(event){
+				removeTeddyToCart(teddy);
+			})
+			})
+	  */
+		
+
+		
+				
+		

@@ -1,0 +1,6 @@
+getTeddiesFromCart()
+validateContact()
+buildContact()
+
+
+

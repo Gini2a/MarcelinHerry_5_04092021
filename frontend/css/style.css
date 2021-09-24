@@ -182,6 +182,7 @@ a.nav__link{
     margin: auto;
     padding-left: 200px;
     padding-right: 200px;
+    text-align: center;
 }
 
 .ted__img{
@@ -193,4 +194,14 @@ a.nav__link{
     display: flex;
     flex-direction: row-reverse;
     justify-content: space-around;
+}
+
+.btn_cart{
+    display: flex;
+    justify-content: center;
+}
+
+.btn{
+    margin: 20px;
+    padding: 10px;
 }

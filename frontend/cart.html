@@ -20,22 +20,24 @@
 
 
    <main>
-    <h2 class="cart_title">Votre panier</h2>
-    <div class=" cart_recap">
-        <div> Vos Produits</div><br>
-        <div>Vos Options</div><br>
-        <div>Prix</div><br>
+    <h1 class="cart_title">Votre panier</h1>
+    <div id="cart_container">
+        <div class="cart_recap" id="cart_pdt"> Vos Produits</div><br>
+        <div class="cart_recap" id="cart_option">Vos Options</div><br>
+        <div class="cart_recap" id="cart_price">Prix</div><br>
+        <div class="cart-recap" id="cart_btn"><span class="cart_title"></span></div>
+        <div id="contenu-total-price"></div>
     </div>
 
     <div class="form_contact">
         <h2 class="form_title">Contact pour la commande</h2>
         <form class="form" method="post" name="formContact">
             <label>Nom : 
-            <input class="form_input" type="text" name="nom" id="nom" required placeholder="Herry">
+            <input class="form_input" type="text" name="nom" id="nom" placeholder="Herry">
             </label>
 
             <label>Prénom : 
-            <input class="form_input" type="text" name="prenom" id="prenom" required placeholder="Marcelin">
+            <input class="form_input" type="text" name="prenom" id="prenom" placeholder="Marcelin">
             </label>
          
 
@@ -45,19 +47,19 @@
          
 
             <label>Adresse : 
-            <input class="form_input" type="text" name="adresse" id="adresse" required placeholder="63 rue des grands champs">
+            <input class="form_input" type="text" name="adresse" id="adresse"  placeholder="63 rue des grands champs">
             </label>
 
             <label>ville : 
-            <input class="form_input" type="text" name="ville" id="ville" required placeholder="Poissy">
+            <input class="form_input" type="text" name="ville" id="ville" placeholder="Poissy">
             </label>
-        
 
-            <input class="form_order" type="submit" value="Commander">
+            <input id="submit" type="submit" value="Commander">
         </form>
     </div>
     </main>
-
+<script src="js/function.js"></script>
+<script src="js/cart.js"></script>
     <footer>
         <div class="nav">
             <a href="#" class="nav__link">Contact</a>
