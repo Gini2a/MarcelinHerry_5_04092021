@@ -182,7 +182,23 @@ function buildContact(){
    console.log(contact)
    return contact
  }
+ function computeTotalPriceFromCart() {
+  let panier = JSON.parse(localStorage.getItem("cart"));
+  console.log(panier[0].price)
+  let totalPrice = 0;
+     for (let i=0; i<panier.length; i++) {
+         totalPrice = totalPrice + panier[i].price;
+     }
+ console.log(totalPrice/100)
+ let div = `<p class="cart_desc">Le montant total de votre commande est de ${totalPrice/100} €`
+ ;
  
- let panier = JSON.parse(localStorage.getItem("cart"));
- console.log(panier.length)
+  prix=document.querySelector("#total-price")
+ prix.innerHTML=div;
+ 
+ 
+     localStorage.setItem("totalPriceConfirmation", totalPrice/100);
+ 
+   }
+ 
  

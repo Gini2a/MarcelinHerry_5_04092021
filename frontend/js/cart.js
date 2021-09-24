@@ -1,6 +1,6 @@
 getTeddiesFromCart()
 validateContact()
 buildContact()
-
+computeTotalPriceFromCart()
 
 

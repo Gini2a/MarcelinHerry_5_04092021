@@ -52,9 +52,8 @@ let idTeddy=`http://localhost:3000/api/teddies/${id}`;
 				removeTeddyToCart(teddy);
 			})
 			})
-	  */
 		
-
+*/
 		
 				
 		
