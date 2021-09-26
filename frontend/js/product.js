@@ -34,14 +34,14 @@ let idTeddy=`http://localhost:3000/api/teddies/${id}`;
 					  	</div>
 					  	`;                 
 					document.querySelector("#teddy").innerHTML = teddyHtml;
-			  });
-
-			  getTeddy(id)
-			  .then((teddy)=> {
-		     const buttonAdd=document.querySelector("#btn_add");
+					const buttonAdd=document.querySelector("#btn_add");
 			 buttonAdd.addEventListener('click', function(event) {
 				addTeddyToCart(teddy);
-			 });
+
+
+
+
+			  });
 
 
 			})

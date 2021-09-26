@@ -22,13 +22,28 @@
    <main>
     <h1 class="cart_title">Votre panier</h1>
     <div id="cart_container">
-        <div class="cart_recap" id="cart_pdt"> Vos Produits</div><br>
-        <div class="cart_recap" id="cart_option">Vos Options</div><br>
-        <div class="cart_recap" id="cart_price">Prix</div><br>
-        <div class="cart-recap" id="cart_btn"><span class="cart_title"></span></div>
+        <table id="teddiesTables">
+            <thead>
+                <th>Image</th>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Quantité</th>
+                <th>Prix</th>
+            </thead>
+            <tbody id="tbody">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+            <tbody id="ttotal">
+            </tbody>
+           
+        </table>
     </div>
-    <div id="total-price"></div>
-
     <div class="form_contact">
         <h2 class="form_title">Contact pour la commande</h2>
         <form class="form" method="post" name="formContact">
@@ -58,6 +73,7 @@
         </form>
     </div>
     </main>
+<script src="js/const.js"></script>    
 <script src="js/function.js"></script>
 <script src="js/cart.js"></script>
     <footer>

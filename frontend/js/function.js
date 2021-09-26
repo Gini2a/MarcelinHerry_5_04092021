@@ -108,27 +108,27 @@ function removeTeddyToCart(teddy) {
 //  fonction qui me permet de construire mes teddies présents dans le localStorage dans le panier
 
 function getTeddiesFromCart(){
+  getTeddies()
   let panier = JSON.parse(localStorage.getItem("cart"));
   console.log(panier)
   let panierTab=[];
 
-  for (let produit in panier){
-    let cartHtlm= `<div class="row">
-                            <div class="name_price">
-                            <p class="name_teddy">Nom :${panier[produit].name}</p>
-                            <p class="price_cart"> Prix : ${panier[produit].price/100} €</p>
-                            
-                </div>`;
+  for (let produit of panier){
+    let cartHtlm=
+    `<tr>
+    <td class="td_img"><img class="teddy__image" src="${produit.imageUrl}" alt="joli ourson" /></td>
+    <td class="td_name">${produit.name}</td>
+    <td>${produit.description}</td>
+    <td>"1"</td>
+    <td>${produit.price/100} €</td>
+    </tr>`;
       
   panierTab.push(cartHtlm);
+  console.log(produit)
    
   
   }
-  let div = `<p class="cart_desc">Récapitulatif de votre panier : 100% MadeinHands !</p>
-  <h2 class="cart_title">Vos produits</h2> <div class="teddy__cart">${panierTab.join("")}</div>`;
-  
-  
-  document.querySelector("#cart_container").innerHTML=div;
+  document.querySelector("#tbody").innerHTML=`${panierTab.join("")}`;
   }
   
 
@@ -182,6 +182,9 @@ function buildContact(){
    console.log(contact)
    return contact
  }
+
+//  Fonction qui me calcule le prix total de mon panier
+
  function computeTotalPriceFromCart() {
   let panier = JSON.parse(localStorage.getItem("cart"));
   console.log(panier[0].price)
@@ -189,16 +192,25 @@ function buildContact(){
      for (let i=0; i<panier.length; i++) {
          totalPrice = totalPrice + panier[i].price;
      }
- console.log(totalPrice/100)
- let div = `<p class="cart_desc">Le montant total de votre commande est de ${totalPrice/100} €`
- ;
- 
-  prix=document.querySelector("#total-price")
- prix.innerHTML=div;
- 
- 
-     localStorage.setItem("totalPriceConfirmation", totalPrice/100);
- 
+ return totalPrice/100 + '€'
    }
+
+// fonction qui me construit ma ligne totale dans mon tableau sur la page Panier
+
+   function buildTeddiesTotalPriceForTable() {
+    return `<tr>
+                <td colspan="4">TOTAL</td>
+                <td>${computeTotalPriceFromCart()}</td>
+            </tr>`;
+}
  
- 
+ //fonction qui prend en paramètre un tableau full de teddies et retourne un tableau des _id de ces teddies
+ function getIdFromTeddies(){
+ getTeddies()
+ .then((teddies)=>{
+   let IdsTab=[];
+   for(let teddy of teddies){
+     IdsTab.push(teddy._id);
+   }
+   return IdsTab;
+ })}
