@@ -1,7 +1,6 @@
-getTeddiesFromCart()
-validateContact()
-buildContact()
-computeTotalPriceFromCart()
+main()
 
 document.querySelector("#ttotal").innerHTML=buildTeddiesTotalPriceForTable()
+getIdFromTeddies()
+
 
