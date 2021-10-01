@@ -1,3 +1,6 @@
+/*--------------------------Fonctions page Index------------------------------*/
+
+
 //fonction pour récupérer les infos de tous les teddies
 async function getTeddies() {
   let response = await fetch(baseUrl + "/teddies", {
@@ -5,16 +8,6 @@ async function getTeddies() {
   });
   let json = await response.json();
   return json;
-}
-
-//fonction pour récupérer les infos d'un seul teddy
-async function getTeddy(id) {
-let response = await fetch (baseUrl + `/teddies/${id}`, {
-  method: "GET"
-});
-let json = await response.json();
-return json;
-
 }
 
 //fonction pour construire l'html des teddies 
@@ -41,15 +34,25 @@ return `
 `;
 }
 
+/*-----------------------------fonctions page product--------------------------*/
 
-function optionColors(teddy) {
-  // Déclaration de la vaiable optionLense
-  let optionColor = "";
-  // Boucle qui permet de d'afficher des lentilles pour chaque lentilles présentes dans le backend (cela changera en fonction de l'id du produit)
-  for (let color of teddy.colors) {
-      optionColor += `<option value="${color}">${color}</option>`;
+
+//fonction pour récupérer les infos d'un seul teddy
+async function getTeddy(id) {
+  let response = await fetch (baseUrl + `/teddies/${id}`, {
+    method: "GET"
+  });
+  let json = await response.json();
+  return json; 
   }
-  // Construction du select html grâce auquel on verra l'option de chaque lentille
+
+
+// fonction concernant le choix de la couleur
+function optionColors(teddy) {
+  let optionColor = "";
+  for (let color of teddy.colors) {
+      optionColor += `<option value="${[color]}">${[color]}</option>`;
+  }
   return `<select class="teddy-color">
               ${optionColor}
           </select>`
@@ -88,6 +91,7 @@ return`
 
 
 // fonction qui permet de rajouter mes teddies dans le localStorage
+
 function addTeddyToCart(teddy) {
 let teddiesJSON = localStorage.getItem(cartKey);
 if(teddiesJSON == null) {
@@ -99,226 +103,127 @@ if(teddiesJSON == null) {
     teddies.push(teddy);
     teddiesJSON = JSON.stringify(teddies);
 }
-localStorage.setItem("cart", teddiesJSON);
-
+localStorage.setItem(cartKey, teddiesJSON);
 }
 
+/*--------------------------fonctions de la page cart------------------------*/
 
-/*
-//fonction qui permet de supprimer mes teddies dans le localStorage
-function removeTeddyToCart(teddy) {
-let teddiesJSON = localStorage.RemoveItem(cartKey);
-if(teddiesJSON == null) {
-    let teddies = [];
-    teddies.push(teddy);
-    teddiesJSON = JSON.stringify(teddies);
-} else {
-    let teddies = JSON.parse(teddiesJSON);
-    teddies.push(teddy);
-    teddiesJSON = JSON.stringify(teddies);
+// fonction qui me permet de construire mes teddies présents dans le localStorage dans le panier
+
+function getTeddiesFromCart() {
+  let teddiesJSON = localStorage.getItem(cartKey);
+  if(teddiesJSON == null) {
+      return [];
+  } else {
+      return JSON.parse(teddiesJSON);
+  }
 }
-localStorage.setItem("cart", teddiesJSON);
-}
-;
-*/
 
-
-
-//  fonction qui me permet de construire mes teddies présents dans le localStorage dans le panier
-
-function getTeddiesFromCart(){
-getTeddies()
-let panier = JSON.parse(localStorage.getItem("cart"));
-console.log(panier)
-let panierTab=[];
-
-for (let produit of panier){
-  let cartHtlm=
-  `<tr>
-  <td class="td_img"><img class="teddy__image" src="${produit.imageUrl}" alt="joli ourson" /></td>
-  <td class="td_name">${produit.name}</td>
-  <td>${produit.description}</td>
-  <td>"1"</td>
-  <td>${produit.price/100} €</td>
+//fonction pour construire un teddy sous forme de ligne de tableau pour affichage dans un tableau
+function buildTeddyForTable(teddy){
+  
+ return `<tr>
+  <td class="td_img"><img class="teddy__image" src="${teddy.imageUrl}" alt="joli ourson" /></td>
+  <td class="td_name">${teddy.name}</td>
+  <td>${teddy.description}</td>
+  <td>1</td>
+  <td>${teddy.price/100} €</td>
   </tr>`;
-    
-panierTab.push(cartHtlm);
-console.log(produit)
- 
-
-}
-document.querySelector("#tbody").innerHTML=`${panierTab.join("")}`;
 }
 
-
-// on prépare les infos pour l'envoie en POST
-
-// on valide que le formulaire soit correctement rempli
-
-function validateContact(){
-  submit.addEventListener("click", (event) => {
-  let contact = {
-    firstName: document.querySelector("#nom").value,
-    lastName: document.querySelector("#prenom").value,
-    address: document.querySelector("#adresse").value,
-    city: document.querySelector("#ville").value,
-    email: document.querySelector("#email").value
-};
-     
-      if (
-          (regexMail.test(contact.email) == true) &
-          (regexName.test(contact.firstName) == true) &
-          (regexName.test(contact.lastName) == true) &
-          (regexCity.test(contact.city) == true) &
-          (regexAddress.test(contact.address) == true)
-      ) {
-          event.preventDefault();
-          getTeddies()
-.then((teddies)=>{
- let idsTab=[];
- for(let teddy of teddies){
-   idsTab.push(teddy._id);
-}})
-          if (window.confirm(`Êtes-vous sûr de vouloir passer la commande `)) {
-            window.location.href = "./order.html"
-        } else {
-            window.location.href = "./index.html"
-            localStorage.clear();
-        }
-        fetch("http://localhost:3000/api/teddies/order", {
-          method: "POST",
-          headers: {
-              "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ contact, idsTab }),
-      })
-      .then((response) => response.json())
-      .then((data) => {
-          //Stockage de la commande dans local Storage
-          localStorage.setItem("commande", JSON.stringify(data));
-      
-      })
-      .catch((erreur) => console.log("erreur : " + erreur));
-    }else {
-        alert(
-            "Tous les champs du formulaire doivent être complétés"
-        );
-    }
-          
-
-      });
-    }
-     
-    
-       /*   function confirmation() {
-            if (window.confirm(`Êtes-vous sûr de vouloir passer la commande `)) {
-                window.location.href = "./confirmation.html"
-            } else {
-                window.location.href = "../index.html"
-                localStorage.clear();
-            }
-        }
-        // -------  Envoi de la requête POST au back-end --------
-        // Envoie de la requête avec l'en-tête. le local Storage contiendra les données de l'acheteur, id de la commande  ,les infos du produits
-        fetch("http://localhost:3000/api/teddies/order", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ contact, products }),
-            })
-            .then((response) => response.json())
-            .then((data) => {
-                //Stockage de la commande dans local Storage
-                localStorage.setItem("commande", JSON.stringify(data));
-                confirmation()
-            })
-            .catch((erreur) => console.log("erreur : " + erreur));
-    } else {
-        alert(
-            "Tous les champs du formulaire sont obligatoires!!!!."
-        );
-    }
-});
-}
-
-
-
-
-/
-function confirmationOrder(){
-let contact = buildContact("", "", "", "", "");
-let message = validateContact(contact);
-
-if(message != null) {
-  alert(message);
-  return;
-}
-}
-
-
-console.log(buildContact())
-*/
-//  Fonction qui me calcule le prix total de mon panier
-
-function computeTotalPriceFromCart() {
-let panier = JSON.parse(localStorage.getItem("cart"));
-console.log(panier[0].price)
-let totalPrice = 0;
-   for (let i=0; i<panier.length; i++) {
-       totalPrice = totalPrice + panier[i].price;
-   }
-return totalPrice/100 + '€'
- }
 
 // fonction qui me construit ma ligne totale dans mon tableau sur la page Panier
 
- function buildTeddiesTotalPriceForTable() {
+function buildTeddiesTotalPriceForTable() {
   return `<tr>
               <td colspan="4">TOTAL</td>
               <td>${computeTotalPriceFromCart()}</td>
           </tr>`;
 }
 
-//fonction qui prend en paramètre un tableau full de teddies et retourne un tableau des _id de ces teddies
-function getIdFromTeddies(){
-getTeddies()
-.then((teddies)=>{
- let idsTab=[];
- for(let teddy of teddies){
-   idsTab.push(teddy._id);
- }
- return idsTab;
-})}
-
-function toEmptyCart() {
-
 // Lorsque qu'on clique sur le bouton, le panier se vide ainsi que le localStorage
-const buttonToEmptyCart = document.querySelector("#empty_cart");
-buttonToEmptyCart.addEventListener("click", () => {
-  localStorage.clear();
-  location.reload();
-});
+
+function toEmptyCart() {  
+  const buttonToEmptyCart = document.querySelector("#empty_cart");
+  buttonToEmptyCart.addEventListener("click", () => {
+    localStorage.clear();
+    location.reload();
+  });
+  }
+
+
+//  Fonction qui me calcule le prix total de mon panier
+
+function computeTotalPriceFromCart() {
+  let panier = JSON.parse(localStorage.getItem("cart"));
+  console.log(panier[0].price)
+  let totalPrice = 0;
+     for (let i=0; i<panier.length; i++) {
+         totalPrice = totalPrice + panier[i].price;
+     }
+  return totalPrice/100 + '€'
+   }
+  
+
+
+function buildContact(firstName, lastName, email, address, city) {
+
+  return {
+      "firstName": firstName,
+      "lastName": lastName,
+      "email": email,
+      "address": address,
+      "city": city,
+  };
+}
+
+function validateContact(contact) {
+      if 
+      (regexMail.test(contact.email) == false){
+       return "veuillez écrire une adresse mail valide"
+      }else if (regexName.test(contact.firstName) == false){
+      return " veuillez renseigner le champs prénom"
+      }else if (regexName.test(contact.lastName) == false){
+      return "veuillez renseigner le champs nom de famille"
+      }else if (regexCity.test(contact.city) == false){
+      return "veuillez renseigner le champs ville"
+      }else if (regexAddress.test(contact.address) == false){
+      return " veuillez renseigner le champs adresse"
+
+     }else{
+      return null;
+  }
 }
 
 
-function buildContact(){
-let contact = {
-  firstName: document.querySelector("#nom").value,
-  lastName: document.querySelector("#prenom").value,
-  address: document.querySelector("#adresse").value,
-  city: document.querySelector("#ville").value,
-  email: document.querySelector("#email").value
-};
-  return contact 
+
+function getIdFromTeddies(teddies) {
+  let teddiesIds = [];
+  for (let teddy of teddies) {
+      teddiesIds.push(teddy._id);
+  }
+
+  return teddiesIds;
+
+}
+
+async function sendOrder(contact, teddies) {
+
+  let response = await fetch(baseUrl + "/teddies/order", {
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify({
+          "contact": contact,
+          "products": teddies,
+      }),
+
+  });
+  let json = await response.json();
+  return json;
 }
 
 
 
-function main(){
-  getTeddiesFromCart()
-computeTotalPriceFromCart()
-toEmptyCart()
-validateContact()
 
-}
+
+

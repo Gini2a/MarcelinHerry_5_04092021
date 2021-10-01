@@ -1,21 +1,13 @@
-
 getTeddies()
-
 .then((teddies)=> {
-    console.log("value", teddies);
     let figureTab = [];
     for(let teddy of teddies) {
       let figure = (buildTeddies(teddy));
-      // string interpolation ${variable}
-
-      figureTab.push(figure);
-      
+      figureTab.push(figure);    
   }
   
-
   let div = `<p class="store_desc">Nous confectionnons des nounours pour petits et grands : 100% MadeinHands !</p>
   <h2 class="store_title">Nos produits</h2> <div class="teddy__cards">${figureTab.join("")}</div>`;
-
 
   document.querySelector("#storeJs").innerHTML = div;
 })

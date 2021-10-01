@@ -1,8 +1,17 @@
-const order = JSON.parse(localStorage.getItem("commande")) || [];
-// affiche Mes informations
+const params = new URL(document.location).searchParams;
+var id = params.get("id");
+var totalCart = params.get("price");
+
+console.log(buildContact())
+
+
+
+
 const informations = document.querySelector(".confirmation");
 informations.innerHTML += `
-<h2 class="congrats">Félicitations !${order.contact.firstName} <br>Votre commande a bien été prise en compte</h2>
-<p class="total">Le montant total est de </p>            
-<p class="orderid">Votre numéro de commande est le : </p>
+<h2 class="congrats">Félicitations ! <br>Votre commande a bien été prise en compte</h2>
+<p class="total">Le montant total est de ${totalCart} </p>            
+<p class="orderid">Votre numéro de commande est le : ${id} </p>
     `;
+
+    localStorage.clear()
