@@ -27,7 +27,6 @@ form.addEventListener("submit", function (event) {
     }
 
     let teddyIds = getIdFromTeddies(teddies);
-    console.log(contact, teddies, teddyIds);
     let orderPromise = sendOrder(contact, teddyIds);
 
     orderPromise.then(function (order) {
@@ -35,5 +34,6 @@ form.addEventListener("submit", function (event) {
 
         window.location.href = `./order.html?id=${order.orderId}&price=${computeTotalPriceFromCart()}`;
   });
-});
+})
+toEmptyCart();
 

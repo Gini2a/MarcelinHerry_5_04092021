@@ -1,7 +1,8 @@
 /*--------------------------Fonctions page Index------------------------------*/
 
 
-//fonction pour récupérer les infos de tous les teddies
+//Fonction pour récupérer les infos de tous les teddies
+
 async function getTeddies() {
   let response = await fetch(baseUrl + "/teddies", {
     method: "GET"
@@ -10,7 +11,8 @@ async function getTeddies() {
   return json;
 }
 
-//fonction pour construire l'html des teddies 
+// Fonction pour construire l'html des teddies 
+
 function buildTeddies(teddy) {
 
 return `
@@ -37,7 +39,8 @@ return `
 /*-----------------------------fonctions page product--------------------------*/
 
 
-//fonction pour récupérer les infos d'un seul teddy
+// Fonction pour récupérer les infos d'un seul teddy
+
 async function getTeddy(id) {
   let response = await fetch (baseUrl + `/teddies/${id}`, {
     method: "GET"
@@ -47,7 +50,8 @@ async function getTeddy(id) {
   }
 
 
-// fonction concernant le choix de la couleur
+// Fonction concernant le choix de la couleur
+
 function optionColors(teddy) {
   let optionColor = "";
   for (let color of teddy.colors) {
@@ -59,10 +63,11 @@ function optionColors(teddy) {
 }
 
 
-//fonction pour construire l'html d'un teddy page product
+// Fonction pour construire l'html d'un teddy page product
+
 function buildTeddy(teddy) {
 
-  let selectColor = optionColors(teddy);
+  
 
 return`
 <div class="row">
@@ -79,8 +84,9 @@ return`
         <p class="teddy__price">    
         <strong> ${teddy.price/100} €
         </p>
+        ${optionColors(teddy)}
         <form class="teddy-color">
-        ${selectColor}
+        
         </form>	
         </div>
         <button class="btn__add">Ajouter au panier</button>
@@ -90,7 +96,7 @@ return`
 }
 
 
-// fonction qui permet de rajouter mes teddies dans le localStorage
+// Fonction qui permet de rajouter mes teddies dans le localStorage
 
 function addTeddyToCart(teddy) {
 let teddiesJSON = localStorage.getItem(cartKey);
@@ -108,7 +114,7 @@ localStorage.setItem(cartKey, teddiesJSON);
 
 /*--------------------------fonctions de la page cart------------------------*/
 
-// fonction qui me permet de construire mes teddies présents dans le localStorage dans le panier
+// Fonction qui me permet de construire mes teddies présents dans le localStorage dans le panier
 
 function getTeddiesFromCart() {
   let teddiesJSON = localStorage.getItem(cartKey);
@@ -119,7 +125,7 @@ function getTeddiesFromCart() {
   }
 }
 
-//fonction pour construire un teddy sous forme de ligne de tableau pour affichage dans un tableau
+// fonction pour construire un teddy sous forme de ligne de tableau pour affichage dans un tableau
 function buildTeddyForTable(teddy){
   
  return `<tr>
@@ -127,17 +133,17 @@ function buildTeddyForTable(teddy){
   <td class="td_name">${teddy.name}</td>
   <td>${teddy.description}</td>
   <td>1</td>
-  <td>${teddy.price/100} €</td>
+  <td>${formatPrice(teddy.price)}</td>
   </tr>`;
 }
 
 
-// fonction qui me construit ma ligne totale dans mon tableau sur la page Panier
+// Fonction qui me construit ma ligne totale dans mon tableau sur la page Panier
 
 function buildTeddiesTotalPriceForTable() {
   return `<tr>
               <td colspan="4">TOTAL</td>
-              <td>${computeTotalPriceFromCart()}</td>
+              <td>${formatPrice(computeTotalPriceFromCart())}</td>
           </tr>`;
 }
 
@@ -155,16 +161,25 @@ function toEmptyCart() {
 //  Fonction qui me calcule le prix total de mon panier
 
 function computeTotalPriceFromCart() {
-  let panier = JSON.parse(localStorage.getItem("cart"));
-  console.log(panier[0].price)
-  let totalPrice = 0;
-     for (let i=0; i<panier.length; i++) {
-         totalPrice = totalPrice + panier[i].price;
-     }
-  return totalPrice/100 + '€'
-   }
   
+  let teddies = getTeddiesFromCart();
+  //parcours l'objet teddies et somme tous les `price`
+  let sum = 0;
+  for(let teddy of teddies) {
+      sum += teddy.price;
+  }
 
+  return sum;
+}
+
+  // Fonction pour formater le prix dans le bon format
+
+function formatPrice(price) {
+  let priceFormatted = price / 100;
+  return priceFormatted + " €";
+}
+  
+// Une fonction qui permet de contruire l'objet contact à partir des informations du contact
 
 function buildContact(firstName, lastName, email, address, city) {
 
@@ -176,6 +191,8 @@ function buildContact(firstName, lastName, email, address, city) {
       "city": city,
   };
 }
+
+// Fonction qui vérifie les saisies du formulaire contact
 
 function validateContact(contact) {
       if 
@@ -196,6 +213,7 @@ function validateContact(contact) {
 }
 
 
+// Fonction qui prend en paramètre un tableau full de teddies et retourne un tableau des _id de ces teddies
 
 function getIdFromTeddies(teddies) {
   let teddiesIds = [];
@@ -206,6 +224,8 @@ function getIdFromTeddies(teddies) {
   return teddiesIds;
 
 }
+
+// Fonction qui permet de passer la commande 
 
 async function sendOrder(contact, teddies) {
 
